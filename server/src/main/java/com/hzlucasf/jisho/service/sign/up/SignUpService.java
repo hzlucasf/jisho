@@ -38,7 +38,7 @@ public class SignUpService {
 
         var user = new User(
                 userRequest.getUsername(),
-                userRequest.getPassword(),
+                passwordEncoder.encode(userRequest.getPassword()),
                 Role.USER
         );
 
