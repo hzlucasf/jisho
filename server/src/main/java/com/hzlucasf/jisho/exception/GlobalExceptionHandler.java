@@ -1,5 +1,6 @@
 package com.hzlucasf.jisho.exception;
 
+import com.hzlucasf.jisho.exception.user.InvalidPasswordException;
 import com.hzlucasf.jisho.exception.user.InvalidUsernameException;
 import com.hzlucasf.jisho.model.exception.response.DetailedExceptionResponse;
 import com.hzlucasf.jisho.model.exception.response.ExceptionResponse;
@@ -25,6 +26,16 @@ public class GlobalExceptionHandler {
         return new DetailedExceptionResponse(
                 invalidUsernameException.getMessage(),
                 "invalid username exception"
+        );
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public DetailedExceptionResponse invalidPasswordExceptionHandler(InvalidPasswordException invalidPasswordException) {
+        return new DetailedExceptionResponse(
+                invalidPasswordException.getMessage(),
+                "invalid password exception"
         );
     }
 }
