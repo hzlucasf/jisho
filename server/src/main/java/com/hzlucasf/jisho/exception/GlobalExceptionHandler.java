@@ -2,6 +2,7 @@ package com.hzlucasf.jisho.exception;
 
 import com.hzlucasf.jisho.exception.user.InvalidPasswordException;
 import com.hzlucasf.jisho.exception.user.InvalidUsernameException;
+import com.hzlucasf.jisho.exception.user.UserAlreadyRegisteredException;
 import com.hzlucasf.jisho.model.exception.response.DetailedExceptionResponse;
 import com.hzlucasf.jisho.model.exception.response.ExceptionResponse;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,16 @@ public class GlobalExceptionHandler {
         return new DetailedExceptionResponse(
                 invalidPasswordException.getMessage(),
                 "invalid password exception"
+        );
+    }
+
+    @ExceptionHandler(UserAlreadyRegisteredException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public DetailedExceptionResponse userAlreadyRegisteredExceptionHandler(UserAlreadyRegisteredException userAlreadyRegisteredException) {
+        return new DetailedExceptionResponse(
+                userAlreadyRegisteredException.getMessage(),
+                "user already registered exception"
         );
     }
 }
