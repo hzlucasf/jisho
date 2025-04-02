@@ -1,5 +1,6 @@
 package com.hzlucasf.jisho.model.user;
 
+import com.hzlucasf.jisho.model.role.Role;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,15 +15,19 @@ public class User {
 
     private String password;
 
+    private Role role;
+
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, Role role) {
         this.id = UUID.randomUUID().toString();
 
         this.username = username;
 
         this.password = password;
+
+        this.role = role;
     }
 
     public String getId() {
@@ -47,5 +52,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
