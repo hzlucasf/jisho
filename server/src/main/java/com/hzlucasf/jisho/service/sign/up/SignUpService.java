@@ -8,14 +8,19 @@ import com.hzlucasf.jisho.model.user.User;
 import com.hzlucasf.jisho.model.user.request.UserRequest;
 import com.hzlucasf.jisho.model.user.response.UserResponse;
 import com.hzlucasf.jisho.repository.user.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SignUpService {
     private final UserRepository userRepository;
 
-    public SignUpService(UserRepository userRepository) {
+    private final PasswordEncoder passwordEncoder;
+
+    public SignUpService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserResponse signUp(UserRequest userRequest) {
