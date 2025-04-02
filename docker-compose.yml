@@ -1,0 +1,35 @@
+services:
+  jisho-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: jisho-client
+    depends_on:
+      - jisho-server
+    ports:
+      - "80:80"
+    networks:
+      - jisho
+  jisho-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: jisho-server
+    depends_on:
+      - jisho-db
+    ports:
+      - "8080:8080"
+    networks:
+      - jisho
+  jisho-db:
+    image: mongo
+    container_name: jisho-db
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=jisho
+      - MONGO_INITDB_ROOT_PASSWORD=jisho
+    networks:
+      - jisho
+networks:
+  jisho:
