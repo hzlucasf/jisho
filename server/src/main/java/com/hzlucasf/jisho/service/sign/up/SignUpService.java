@@ -1,5 +1,6 @@
 package com.hzlucasf.jisho.service.sign.up;
 
+import com.hzlucasf.jisho.exception.user.InvalidPasswordException;
 import com.hzlucasf.jisho.exception.user.InvalidUsernameException;
 import com.hzlucasf.jisho.model.role.Role;
 import com.hzlucasf.jisho.model.user.User;
@@ -19,6 +20,10 @@ public class SignUpService {
     public UserResponse signUp(UserRequest userRequest) {
         if (!userRequest.getUsername().matches("^[a-zA-Z_]+$")) {
             throw new InvalidUsernameException("the username can only contain letters and underscores");
+        }
+
+        if (userRequest.getPassword().length() < 8) {
+            throw new InvalidPasswordException("the password must be at least 8 characters long");
         }
 
         var user = new User(
