@@ -1,5 +1,6 @@
 package com.hzlucasf.jisho.service.sign.up;
 
+import com.hzlucasf.jisho.exception.user.InvalidUsernameException;
 import com.hzlucasf.jisho.model.role.Role;
 import com.hzlucasf.jisho.model.user.User;
 import com.hzlucasf.jisho.model.user.request.UserRequest;
@@ -16,6 +17,10 @@ public class SignUpService {
     }
 
     public UserResponse signUp(UserRequest userRequest) {
+        if (!userRequest.getUsername().matches("^[a-zA-Z_]+$")) {
+            throw new InvalidUsernameException("the username can only contain letters and underscores");
+        }
+
         var user = new User(
                 userRequest.getUsername(),
                 userRequest.getPassword(),
