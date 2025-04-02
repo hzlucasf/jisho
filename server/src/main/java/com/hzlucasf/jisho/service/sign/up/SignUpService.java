@@ -2,6 +2,7 @@ package com.hzlucasf.jisho.service.sign.up;
 
 import com.hzlucasf.jisho.exception.user.InvalidPasswordException;
 import com.hzlucasf.jisho.exception.user.InvalidUsernameException;
+import com.hzlucasf.jisho.exception.user.UserAlreadyRegisteredException;
 import com.hzlucasf.jisho.model.role.Role;
 import com.hzlucasf.jisho.model.user.User;
 import com.hzlucasf.jisho.model.user.request.UserRequest;
@@ -24,6 +25,10 @@ public class SignUpService {
 
         if (userRequest.getPassword().length() < 8) {
             throw new InvalidPasswordException("the password must be at least 8 characters long");
+        }
+
+        if (userRepository.existsByUsername(userRequest.getUsername())) {
+            throw new UserAlreadyRegisteredException("user already registered");
         }
 
         var user = new User(
