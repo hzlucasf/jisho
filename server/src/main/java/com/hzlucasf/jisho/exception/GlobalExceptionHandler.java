@@ -1,5 +1,7 @@
 package com.hzlucasf.jisho.exception;
 
+import com.hzlucasf.jisho.exception.user.InvalidUsernameException;
+import com.hzlucasf.jisho.model.exception.response.DetailedExceptionResponse;
 import com.hzlucasf.jisho.model.exception.response.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,5 +16,15 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ExceptionResponse exceptionHandler(Exception exception) {
         return new ExceptionResponse("internal server error");
+    }
+
+    @ExceptionHandler(InvalidUsernameException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public DetailedExceptionResponse invalidUsernameExceptionHandler(InvalidUsernameException invalidUsernameException) {
+        return new DetailedExceptionResponse(
+                invalidUsernameException.getMessage(),
+                "invalid username exception"
+        );
     }
 }
