@@ -11,6 +11,7 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
 @Configuration
@@ -18,6 +19,9 @@ import java.security.interfaces.RSAPublicKey;
 public class SecurityConfiguration {
     @Value("${rsa.key.public}")
     private RSAPublicKey publicKey;
+
+    @Value("${rsa.key.private}")
+    private RSAPrivateKey privateKey;
 
     @Bean
     public SecurityFilterChain getSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
