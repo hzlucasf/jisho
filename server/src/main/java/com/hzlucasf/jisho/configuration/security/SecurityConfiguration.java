@@ -36,6 +36,9 @@ public class SecurityConfiguration {
                         authorize -> authorize.requestMatchers(
                                 HttpMethod.POST,
                                 "/sign-up"
+                        ).permitAll().requestMatchers(
+                                HttpMethod.POST,
+                                "/sign-in"
                         ).permitAll().anyRequest().denyAll()
                 )
                 .build();
