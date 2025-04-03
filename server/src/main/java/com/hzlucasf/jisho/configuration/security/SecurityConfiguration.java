@@ -1,5 +1,6 @@
 package com.hzlucasf.jisho.configuration.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,9 +11,14 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.security.interfaces.RSAPublicKey;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+    @Value("${rsa.key.public}")
+    private RSAPublicKey publicKey;
+
     @Bean
     public SecurityFilterChain getSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
